@@ -14,9 +14,12 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import vn.edu.usth.usthweather.HomeFragmentPagerAdapter;
+import android.media.MediaPlayer;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String TAG = "Weather";
+
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class WeatherActivity extends AppCompatActivity {
         });
         Log.i(TAG, "ON_CREATE");
         initViewPager();
+        mMediaPlayer = MediaPlayer.create(this,R.raw.iron_man);
+        mMediaPlayer.start();
     }
 
 

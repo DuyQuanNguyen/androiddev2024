@@ -6,7 +6,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeatherActivity">
+    tools:context=".activity.WeatherActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/weather_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
     <com.google.android.material.tabs.TabLayout
         app:tabSelectedTextAppearance="@style/TextAppearance.Material3.TitleMedium"

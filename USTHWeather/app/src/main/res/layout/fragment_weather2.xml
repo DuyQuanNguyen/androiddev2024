@@ -27,7 +27,7 @@
         android:layout_alignTop="@+id/text_city"
         android:layout_alignBottom="@+id/text_city"
         android:layout_marginTop="-15dp"
-        android:layout_marginEnd="161dp"
+        android:layout_marginEnd="135dp"
         android:layout_marginBottom="-16dp"
         android:layout_toStartOf="@+id/text_city"
         android:text="@string/storm"

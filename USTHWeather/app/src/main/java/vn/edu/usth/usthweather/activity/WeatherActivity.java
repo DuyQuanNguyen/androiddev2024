@@ -20,6 +20,9 @@ import vn.edu.usth.usthweather.R;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import androidx.appcompat.widget.Toolbar;
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String TAG = "Weather";
@@ -43,8 +46,31 @@ public class WeatherActivity extends AppCompatActivity {
         mMediaPlayer.start();
 
         initToolBar();
-        requestNetwork();
+        //requestNetwork();
+        requestNetworkByAsyncTask();
     }
+
+    private void requestNetworkByAsyncTask() {
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(String... strings) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                Toast.makeText(getApplicationContext(),
+                        "Request Network....", Toast.LENGTH_SHORT).show();
+            }
+        };
+        task.execute();
+    }
+
 
     private void requestNetwork() {
         final Handler handler = new Handler(Looper.getMainLooper()){

@@ -1,4 +1,4 @@
-package vn.edu.usth.usthweather;
+package vn.edu.usth.usthweather.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +9,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
-
+import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import vn.edu.usth.usthweather.HomeFragmentPagerAdapter;
+import vn.edu.usth.usthweather.adapter.HomeFragmentPagerAdapter;
+import vn.edu.usth.usthweather.R;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import androidx.appcompat.widget.Toolbar;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String TAG = "Weather";
@@ -35,6 +38,28 @@ public class WeatherActivity extends AppCompatActivity {
         initViewPager();
         mMediaPlayer = MediaPlayer.create(this,R.raw.iron_man);
         mMediaPlayer.start();
+
+        initToolBar();
+    }
+
+    private void initToolBar() {
+        Toolbar toolbar = findViewById(R.id.weather_toolbar);
+        toolbar.inflateMenu(R.menu.weather_menu);
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setOnMenuItemClickListener(item -> {
+            int itemMenuId =item.getItemId();
+            if(itemMenuId == R.id.ic_refresh){
+                Toast.makeText(this,"Refreshing process...",Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (itemMenuId == R.id.ic_more) {
+                Intent intent = new Intent(this,PrefActivity.class);
+                startActivity(intent);
+                return true;
+            }else{
+                Toast.makeText(this,"Not found menu item",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 
 

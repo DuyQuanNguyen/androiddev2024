@@ -1,4 +1,4 @@
-package vn.edu.usth.usthweather;
+package vn.edu.usth.usthweather.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

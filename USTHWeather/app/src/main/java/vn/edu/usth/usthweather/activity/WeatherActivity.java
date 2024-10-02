@@ -1,9 +1,12 @@
 package vn.edu.usth.usthweather.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
-
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -12,7 +15,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
 import vn.edu.usth.usthweather.adapter.HomeFragmentPagerAdapter;
 import vn.edu.usth.usthweather.R;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String TAG = "Weather";
+    public static final String NETWORK_RESPONSE_KEY = "NETWORK_RESPONSE_KEY";
 
     private MediaPlayer mMediaPlayer;
 
@@ -40,6 +43,33 @@ public class WeatherActivity extends AppCompatActivity {
         mMediaPlayer.start();
 
         initToolBar();
+        requestNetwork();
+    }
+
+    private void requestNetwork() {
+        final Handler handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                String content = msg.getData().getString(NETWORK_RESPONSE_KEY);
+                Toast.makeText(getApplicationContext(),content,Toast.LENGTH_SHORT).show();
+            }
+        };
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(5000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                Bundle mBundle = new Bundle();
+                mBundle.putString(NETWORK_RESPONSE_KEY,"Request Network....");
+                Message msg = new Message();
+                msg.setData(mBundle);
+                handler.sendMessage(msg);
+            }
+        });
+        thread.start();
     }
 
     private void initToolBar() {
